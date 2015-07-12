@@ -21,8 +21,8 @@ require ($root_dir . '/.env.php');
 /**
  * Pulls the table-prefix from .env.php.
  */
-if (defined('WP_TABLE_PREFIX')) {
-    $table_prefix = WP_TABLE_PREFIX;
+if (defined('WPC_TABLE_PREFIX')) {
+    $table_prefix = WPC_TABLE_PREFIX;
 } else {
     $table_prefix = 'wp_';
 }
@@ -32,7 +32,22 @@ if (!defined('WP_HOME')) {
     define('WP_HOME', 'http://' . $_SERVER['SERVER_NAME']);
 }
 if (!defined('WP_SITEURL')) {
-    define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME'] . '/wp-core');
+    define('WP_SITEURL', WP_HOME . '/wp-core');
+}
+
+/* Content Dir */
+if (!defined('WP_CONTENT_DIR')) {
+    define('WP_CONTENT_DIR',  $docroot_dir . '/wp-content');
+}
+
+/* Uploads-folder location, relative to ABSPATH */
+if (!defined('UPLOADS')) {
+    define('UPLOADS',  'uploads');
+}
+
+/* Custom Themes directory, public URL */
+if (!defined('WPC_CUSTOM_THEME_DIR')) {
+    define('WPC_CUSTOM_THEME_DIR',  WP_HOME . '/themes');
 }
 
 /**

@@ -22,6 +22,10 @@
     "johnpbloch/wordpress": "~4.2"
   },
   "extra": {
-    "wordpress-install-dir": "htdocs/wp-core"
+    "wordpress-install-dir": "htdocs/wp-core",
+    "installer-paths": {
+          "htdocs/wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+          "htdocs/wp-content/themes/{$name}/": ["type:wordpress-theme"]
+      }
   }
 }

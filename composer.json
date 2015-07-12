@@ -1,0 +1,27 @@
+{
+  "name": "mto.org",
+  "description": "MTO Multisite Wordpress",
+  "type": "project",
+  "license": "ISC",
+  "authors": [
+    {
+      "name": "Oliver Erdmann",
+      "email": "o.erdmann@finaldream.de"
+    }
+  ],
+  "config": {
+    "vendor-dir": "htdocs/wp-content/vendor"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://wpackagist.org"
+    }
+  ],
+  "require": {
+    "johnpbloch/wordpress": "~4.2"
+  },
+  "extra": {
+    "wordpress-install-dir": "htdocs/wp-core"
+  }
+}

@@ -1,0 +1,16 @@
+# Ignore everything ...
+*
+
+# ... except
+!composer.json
+!composer.lock
+!.env.php-sample
+!.gitignore
+!Readme.md
+
+!LICENSE
+!docs
+!htdocs
+!htdocs/themes
+!htdocs/index.php
+!htdocs/wp-config.php

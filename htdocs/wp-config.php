@@ -12,6 +12,7 @@
 
 $docroot_dir = realpath(__DIR__);
 $root_dir    = realpath(__DIR__ . '/..');
+$server_url  = 'http://' . $_SERVER['SERVER_NAME'];
 
 /**
  * Include environment configuration.
@@ -29,7 +30,7 @@ if (defined('WPC_TABLE_PREFIX')) {
 
 /* WP-Core location */
 if (!defined('WP_HOME')) {
-    define('WP_HOME', 'http://' . $_SERVER['SERVER_NAME']);
+    define('WP_HOME', $server_url);
 }
 if (!defined('WP_SITEURL')) {
     define('WP_SITEURL', WP_HOME . '/wp-core');
@@ -39,15 +40,13 @@ if (!defined('WP_SITEURL')) {
 if (!defined('WP_CONTENT_DIR')) {
     define('WP_CONTENT_DIR',  $docroot_dir . '/wp-content');
 }
+if (!defined('WP_CONTENT_URL')) {
+    define('WP_CONTENT_URL',  WP_HOME . '/wp-content');
+}
 
 /* Uploads-folder location, relative to ABSPATH */
 if (!defined('UPLOADS')) {
     define('UPLOADS',  'uploads');
-}
-
-/* Custom Themes directory, public URL */
-if (!defined('WPC_CUSTOM_THEME_DIR')) {
-    define('WPC_CUSTOM_THEME_DIR',  WP_HOME . '/themes');
 }
 
 /**
@@ -64,3 +63,8 @@ if (!defined('ABSPATH')) {
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
+
+/* Custom Themes directory, public URL */
+if (!defined('WPC_CUSTOM_THEME_DIR')) {
+    register_theme_directory($docroot_dir . '/themes');
+}

@@ -6,7 +6,7 @@ together by Wordpress: the core, plugins, themes, uploads and the
 config. This is done in order to provide more predictable updates and a simpler,
 reproducible deployment.
 
-The config is extracted and excluded from the project at all for more security and 
+The config is extracted and excluded from the project at all for more security and
 support for multiple deployment-targets.
 
 ## Features:
@@ -68,7 +68,7 @@ are then whitelisted again.
 # Installation
 
 * make sure you have [Composer](https://getcomposer.org/doc/00-intro.md#installation-nix) installed.
-* checkout the project from git
+* checkout the project from git (https://github.com/finaldream/wordpress-composed)
 * in the project-root (this is where the composer.json lives):
   * copy `.env.php-sample` to `.env.php`
   * edit the configuration in `.env.php` as you would in `wp-config.php`
@@ -78,7 +78,7 @@ are then whitelisted again.
 
 ## Configuration
 
-Wordpress-Composed works around the traditional `wp-config.php`, which is part of the actual project. The possible locations of this file is limited to a few options and there is no easy way to put it totally outside the project. 
+Wordpress-Composed works around the traditional `wp-config.php`, which is part of the actual project. The possible locations of this file is limited to a few options and there is no easy way to put it totally outside the project.
 My approach is, to remove all config-code from the wp-config, only leaving there a few requires, which usually don't require changes. Then, the config is moved to an `.env.php`-file, which is specific to a deployment-target and ignored by git. This means, yes, you have to create and edit this file on your server by hand.
 But there is already a sample, which helps you get started quickly.
 In general, you have all the same options as you would in wp-config, e.g. you can simply copy any example from [The Codex](http://codex.wordpress.org/Editing_wp-config.php).
@@ -89,6 +89,7 @@ Another reason for me was the chance to use variables, conditions and to retain 
 
 # Author
 Oliver Erdmann, http://www.finaldream.de
+Github: https://github.com/finaldream/wordpress-composed
 
 # License
 Wordpress-Composed is licensed unter the ISC License, See LICENSE file for details.

@@ -1,5 +1,5 @@
 # Ignore everything ...
-*
+/*
 
 # ... except
 !composer.json
@@ -9,9 +9,21 @@
 !Readme.md
 
 !LICENSE
-!docs
-!htdocs
-!htdocs/themes
-!htdocs/.htaccess
-!htdocs/index.php
-!htdocs/wp-config.php
+!/docs/
+# Ignore everything inside htdocs, except the themes-folder
+!/htdocs
+/htdocs/*
+!/htdocs/themes/
+# Ignore everything inside wp-content, except the mu-plugins-folder
+!/htdocs/wp-content
+/htdocs/wp-content/*
+!/htdocs/wp-content/mu-plugins/
+
+# Ignore everything inside uploads, but keep the folder
+!/htdocs/uploads
+/htdocs/uploads/*
+!/htdocs/uploads/.gitkeep
+
+!/htdocs/.htaccess
+!/htdocs/index.php
+!/htdocs/wp-config.php

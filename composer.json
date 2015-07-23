@@ -19,8 +19,7 @@
     }
   ],
   "require": {
-    "johnpbloch/wordpress": "~4.2",
-    "wpackagist-theme/twentyfifteen": "1.2"
+    "johnpbloch/wordpress": "~4.2"
   },
   "extra": {
     "wordpress-install-dir": "htdocs/wp-core",

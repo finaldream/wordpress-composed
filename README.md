@@ -41,7 +41,10 @@ support for multiple deployment-targets.
   |  |  |- vendor/
   |  |  `- autoload.php
   |  |
-  |  |- themes/           * (a place for your custom themes)
+  |  |- mu-plugins/       * (Must-Use Plugins, custom-code)
+  |  |  `- wp-composed-support.php * (Manages a few aspects of WP-Composed)
+  |  |
+  |  |- themes/           * (a place for your custom themes - not Composer managed)
   |  |- uploads/            (user uploads)
   |  |
   |  |- index.php         * (custom, git-managed)

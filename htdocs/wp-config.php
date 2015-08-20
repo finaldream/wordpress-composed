@@ -57,6 +57,14 @@ if (!defined('WP_CONTENT_URL')) {
     define('WP_CONTENT_URL',  WP_HOME . '/wp-content');
 }
 
+/* MU-Plugins Dir */
+if (!defined('WPMU_PLUGIN_DIR')) {
+    define('WPMU_PLUGIN_DIR', WPC_DOCROOT_DIR . '/mu-plugins');
+}
+if (!defined('WPMU_PLUGIN_URL')) {
+    define('WPMU_PLUGIN_URL', WP_HOME . '/mu-plugins');
+}
+
 /* Uploads-folder location, relative to ABSPATH */
 if (!defined('UPLOADS')) {
     define('UPLOADS',  '../uploads');

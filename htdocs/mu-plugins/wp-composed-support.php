@@ -1,11 +1,13 @@
 <?php
-/**
- * This must-use plugin manages different aspects of the wp-composed setup.
- *
- * @author Oliver Erdmann, <o.erdmann@finaldream.de>
- * @since 22.07.2015
- */
-
+/*
+Plugin Name: WP-Composed Support
+Plugin URI: http://finaldream.de
+Description: This must-use plugin manages different aspects of the wp-composed setup.
+Version: 1.0
+Author: Oliver Erdmann, Finaldream Productions
+Author URI: http://finaldream.de
+License: ISC
+*/
 
 /**
  * Registers theme directories for:
@@ -50,6 +52,39 @@ function wpc_filter_theme_root_uri($theme_root_uri)
 
 }
 
+/**
+ * Adds a meta-tag for reflecting the current server-environment.
+ *
+ * @return void
+ */
+function wpc_wp_head()
+{
+    if (defined('WP_ENV') || WP_ENV != 'prod') {
+        echo '<meta name="env" content="'.WP_ENV.'">';
+    }
+
+}
+
+/**
+ * Adds body-classes for reflecting the current server-environment.
+ *
+ * @param $classes
+ * @return array
+ */
+function wpc_body_class($classes)
+{
+
+    if (defined('WP_ENV') || WP_ENV != 'prod') {
+        $classes[] = 'env-'.WP_ENV;
+    }
+
+    return $classes;
+
+}
+
 wpc_register_theme_directories();
 
+add_action( 'wp_head', 'wpc_wp_head');
+
 add_filter( 'theme_root_uri', 'wpc_filter_theme_root_uri');
+add_filter( 'body_class', 'wpc_body_class');

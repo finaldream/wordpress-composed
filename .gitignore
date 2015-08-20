@@ -17,7 +17,8 @@
 # Ignore everything inside wp-content, except the mu-plugins-folder
 !/htdocs/wp-content
 /htdocs/wp-content/*
-!/htdocs/wp-content/mu-plugins/
+
+!/htdocs/mu-plugins/
 
 # Ignore everything inside uploads, but keep the folder
 !/htdocs/uploads

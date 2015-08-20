@@ -87,6 +87,18 @@ In general, you have all the same options as you would in wp-config, e.g. you ca
 I thought about this in the first place. In some cases it might be better to save the config in a non-PHP file, but I found it limiting as well. For each new option, you would still need a statement in your wp-config. While this is no big deal in general, I'd still liked to keep those files separated, without the need to touch them in the case of new options.
 Another reason for me was the chance to use variables, conditions and to retain the ability to copy & paste code from The Codex.
 
+## Plugins and stock-themes:
+Plugins and themes are generally treated as dependencies and managed by Composer.
+The default plugin- and theme-repository is http://wpackagist.org, which basically wraps the wealth of wordpress.org into Composer-friendly packages.
+By default, those dependencies will be stored into `htdocs/wp-content`.
+
+### MU-Plugins
+There is an exception to plugins, so called Must-Use-Plugins. Those plugins are enabled by default and have a few limitations, like the lack of sub-folders (which makes standard-plugins inconvenient to use as mu-plugins). Because of their special status, they are considered custom-code, not an external dependency. In standard WP-installations, the `mu-plugins` folder lives inside of `wp-content`, but in our case, wp-content is managed by Composer and therefor considered disposable. So MU-Plugins are moved to `htdocs/mu-plugins`. The "wp-composed-support"-plugin is living there already, managing a few special aspects of the project.
+
+### Custom themes
+
+You can install any stock-theme available on wpackagist as an external dependency and you can - with a bit of extra effort - set up your own private repository, to have your private themes managed as dependencies. But what if you are building small child-themes, based on a popular stock-theme and you don't want/need all the extra work associated with setting up a private repository for Composer? Well, we've got you covered, there is a folder for that! Watch out for `htdocs/themes`, which is considered custom-code and can hold any of your custom themes, checked into your VCS. It is actually an additional theme-directory, which uses a few (legal) tricks to be fully recognized by Wordpress, but otherwise totally behaves like the default themes-folder.
+
 # Author
 Oliver Erdmann, http://www.finaldream.de
 Github: https://github.com/finaldream/wordpress-composed

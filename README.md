@@ -107,4 +107,4 @@ Oliver Erdmann, http://www.finaldream.de
 Github: https://github.com/finaldream/wordpress-composed
 
 # License
-Wordpress-Composed is licensed unter the ISC License, See LICENSE file for details.
+Wordpress-Composed is licensed unter the ISC License, See LICENSE file for details: http://opensource.org/licenses/ISC

@@ -13,5 +13,7 @@
  */
 define('WP_USE_THEMES', true);
 
+require( dirname( __FILE__ ) . '/wp-content/vendor/autoload.php' );
+
 /** Loads the WordPress Environment and Template */
 require( dirname( __FILE__ ) . '/wp-core/wp-blog-header.php' );

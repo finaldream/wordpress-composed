@@ -19,7 +19,7 @@
     }
   ],
   "require": {
-    "johnpbloch/wordpress": "~4.2"
+    "johnpbloch/wordpress": "~4.4"
   },
   "extra": {
     "wordpress-install-dir": "htdocs/wp-core",

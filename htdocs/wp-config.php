@@ -5,34 +5,145 @@
  * This file is customized by Wordpress-Composed.
  * For more information, see https://github.com/finaldream/wordpress-composed
  *
- * The external ../.env.php is used for actual configurations. Please don't make sensitive changes here.
- *
  * REMEMBER: PASSWORDS, APPLICATION-CREDENTIALS OR OTHER SENSITIVE DATA SHOULD NEVER BE CHECKED INTO YOUR VCS!
- * Customize the .env.php-file for each target environment separately.
+ * Please consider using environment variables.
  *
- * Constants starting with "WPC_" are meant to be read like "WP Custom" or "WP Composed",
- * indicating that they are not part of the original wordpress distribution, but introduced by the Wordpress-Composed
- * project.
- *
- * @package WordPress
+ * Constants starting with "WPC_" are meant to be read like "WP Composed", indicating that they are not part of the
+ * original wordpress distribution, but introduced by the Wordpress-Composed project.
  */
 
-/* Access the docroot / root-locations in env.php by variables, in case you want to override them. */
-$wpc_docroot_dir = realpath(__DIR__);
-$wpc_root_dir = realpath(__DIR__ . '/..');
-$wpc_docroot_url = 'http://' . $_SERVER['SERVER_NAME'];
+/* Prepare root-locations */
+define('WPC_DOCROOT_DIR', realpath(__DIR__));
+define('WPC_ROOT_DIR', realpath(__DIR__ . '/..'));
+define('WPC_DOCROOT_URL', 'http://' . $_SERVER['SERVER_NAME']);
 
-/* Include environment configuration. */
-require ($wpc_root_dir . '/.env.php');
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define('DB_NAME', getenv('DB_NAME'));
 
-/* Define the root-locations. */
-define('WPC_DOCROOT_DIR', $wpc_docroot_dir);
-define('WPC_ROOT_DIR', $wpc_root_dir);
-define('WPC_DOCROOT_URL', $wpc_docroot_url);
+/** MySQL database username */
+define('DB_USER', getenv('DB_USER'));
 
-unset($wpc_docroot_dir);
-unset($wpc_root_dir);
-unset($wpc_docroot_url);
+/** MySQL database password */
+define('DB_PASSWORD', getenv('DB_PASSWORD'));
+
+/** MySQL hostname */
+define('DB_HOST', sprintf('%s:%s', getenv('DB_HOST') ?: 'localhost', getenv('DB_PORT') ?: '3306'));
+
+/** Database Charset to use in creating database tables. */
+define('DB_CHARSET', getenv('DB_CHARSET') ?: 'utf8');
+
+/** The Database Collate type. Don't change this if in doubt. */
+define('DB_COLLATE', '');
+
+/**
+ * WordPress Database Table prefix.
+ *
+ * You can have multiple installations in one database if you give each a unique
+ * prefix. Only numbers, letters, and underscores please!
+ *
+ * This simply configures the $table_prefix-variable in wp-config.
+ *
+ * Override:
+ */
+define('WPC_TABLE_PREFIX', 'wp_');
+
+
+/**
+ * Authentication Unique Keys and Salts.
+ *
+ * Change these to different unique phrases!
+ * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
+ * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
+ *
+ * @since 2.6.0
+ */
+define('AUTH_KEY',         getenv('AUTH_KEY'));
+define('SECURE_AUTH_KEY',  getenv('SECURE_AUTH_KEY'));
+define('LOGGED_IN_KEY',    getenv('LOGGED_IN_KEY'));
+define('NONCE_KEY',        getenv('NONCE_KEY'));
+define('AUTH_SALT',        getenv('AUTH_SALT'));
+define('SECURE_AUTH_SALT', getenv('SECURE_AUTH_SALT'));
+define('LOGGED_IN_SALT',   getenv('LOGGED_IN_SALT'));
+define('NONCE_SALT',       getenv('NONCE_SALT'));
+
+
+/* Override: WP-Core locations */
+/*
+define('WP_HOME', WPC_DOCROOT_URL);
+define('WP_SITEURL', WPC_DOCROOT_URL . '/wp-core');
+*/
+
+/* Override: Content-Dir */
+/*
+define('WP_CONTENT_DIR',  WPC_DOCROOT_DIR . '/wp-content');
+define('WP_CONTENT_URL',  WPC_DOCROOT_URL . '/wp-content');
+*/
+
+/* Override: Custom Uploads-folder */
+/*
+define('UPLOADS',  'uploads');
+*/
+
+/* Override: Custom Themes directory (Registered by the mu-plugin "custom-theme-dir") */
+/*
+define('WPC_CUSTOM_THEME_DIR',  WPC_DOCROOT_DIR . '/themes');
+*/
+
+/* Custom Settings */
+/*
+define('AUTOMATIC_UPDATER_DISABLED', true);
+define('DISABLE_WP_CRON', true);
+define('DISALLOW_FILE_EDIT', true);
+*/
+
+/* Multi-site */
+/*
+define('WP_ALLOW_MULTISITE', true);
+define('MULTISITE', true);
+define('SUBDOMAIN_INSTALL', false);
+define('PATH_CURRENT_SITE', '/wp-core');
+*/
+
+/**
+ * For developers: WordPress debugging mode.
+ *
+ * Change WP_DEBUG to true to enable the display of notices during development.
+ * It is strongly recommended that plugin and theme developers use WP_DEBUG
+ * in their development environments.
+ */
+
+/* Server Environment: 'develop', 'stage' or 'production' */
+define('WP_ENV', getenv('ENV', 'develop'));
+
+switch (WP_ENV) {
+    case 'develop':
+        /*
+        define('SAVEQUERIES', true);
+        define('WP_DEBUG', true);
+        define('SCRIPT_DEBUG', true);
+        */
+        break;
+
+    case 'stage':
+        /*
+        ini_set('display_errors', 0);
+        define('WP_DEBUG_DISPLAY', false);
+        define('SCRIPT_DEBUG', false);
+        define('DISALLOW_FILE_MODS', true);
+        */
+
+        break;
+
+    case 'production':
+        /*
+        ini_set('display_errors', 0);
+        define('WP_DEBUG_DISPLAY', false);
+        define('SCRIPT_DEBUG', false);
+        define('DISALLOW_FILE_MODS', true);
+        */
+        break;
+}
 
 /* Pulls the table-prefix from .env.php. */
 if (defined('WPC_TABLE_PREFIX')) {
@@ -70,8 +181,7 @@ if (!defined('UPLOADS')) {
     define('UPLOADS',  '../uploads');
 }
 
-/* Require Composer Autoloads. */
-require WPC_DOCROOT_DIR . '/wp-content/vendor/autoload.php';
+/* That's all, stop editing! Happy blogging. */
 
 /* Absolute path to the WordPress directory. */
 if (!defined('ABSPATH')) {

@@ -9,6 +9,8 @@ Author URI: http://finaldream.de
 License: ISC
 */
 
+use WordpressComposed\Utils;
+
 /**
  * Registers theme directories for:
  * - the original stock-themes under "/wp-core/wp-content/themes", in case other themes rely on them.
@@ -82,9 +84,30 @@ function wpc_body_class($classes)
 
 }
 
+function wpc_upload_dir($uploads)
+{
+
+    if ($uploads['error'] === true) {
+        return $uploads;
+    }
+
+    $uploads['url']     = Utils::resolveURL($uploads['url']);
+    $uploads['baseurl'] = Utils::resolveURL($uploads['baseurl']);
+    $uploads['path']    = Utils::resolvePath($uploads['path']);
+    $uploads['basedir'] = Utils::resolvePath($uploads['basedir']);
+
+    return $uploads;
+
+}
+
 wpc_register_theme_directories();
 
 add_action( 'wp_head', 'wpc_wp_head');
 
 add_filter( 'theme_root_uri', 'wpc_filter_theme_root_uri');
 add_filter( 'body_class', 'wpc_body_class');
+
+// Correct relative fragments in UPLOADS-path
+if (defined('UPLOADS') && strpos(UPLOADS, '..') !== false) {
+    add_filter( 'upload_dir', 'wpc_upload_dir', 9999);
+}

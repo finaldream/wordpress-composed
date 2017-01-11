@@ -1,0 +1,51 @@
+version: '2'
+
+services:
+
+  web:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./docker/apache2.conf:/etc/apache2/apache2.conf
+      - ./docker/bashrc:/root/.bashrc
+    depends_on:
+      - db
+    links:
+      - db
+
+    environment:
+      # used for bash prompt only
+      CONTAINER_NAME: wordpress_composed_web
+      ENV: develop
+      DB_HOST: db
+      DB_NAME: database
+      DB_USER: db_user
+      DB_PASSWORD: db_user
+
+      # Authentication Unique Keys and Salts: https://api.wordpress.org/secret-key/1.1/salt/
+      AUTH_KEY:         "put your unique phrase here"
+      SECURE_AUTH_KEY:  "put your unique phrase here"
+      LOGGED_IN_KEY:    "put your unique phrase here"
+      NONCE_KEY:        "put your unique phrase here"
+      AUTH_SALT:        "put your unique phrase here"
+      SECURE_AUTH_SALT: "put your unique phrase here"
+      LOGGED_IN_SALT:   "put your unique phrase here"
+      NONCE_SALT:       "put your unique phrase here"
+
+  db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user
+      MYSQL_CHARSET: utf8

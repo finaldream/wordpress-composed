@@ -1,25 +1,10 @@
-# wordpress-composed
+# About wordpress-composed
+
 This project can be used as a starting-point for a composer-based Wordpress setup.
 
-The goal is to strictly separate different components, which are originally tied
-together by Wordpress: the core, plugins, themes, uploads and the
-config. This is done in order to provide more predictable updates and a simpler,
-more predictable deployment.
 
-## Features:
 
-* Composer-based management of the Wordpress Core via https://github.com/johnpbloch/wordpress
-* Themes and Plugins are available by default from http://wpackagist.org
-* there is a strict separation between dependencies and content
-* the core and all plug-ins are treated as dependency and remain untouched during the life-cycle.
-* The wp-content folder is moved up one level, in order to maintain separation between add-ons and the core.
-* The uploads-folder is moved to a separate top-level folder, below the doc-root.
-    This maintains a clear folder-stucture which does not interfere with Composer.
-* there is an additional top-level 'themes' folder, registered as an alternative theme-location, 
-    which can contain your non-standard themes.
-* a top-level "lib"-folder is autoloaded by Composer, allowing you to structure your code using namespaces, following
-    PHP's best-practices.
-* a Docker setup is included for bootstrapping local development
+
 
 ## File-structure
 
@@ -53,16 +38,6 @@ more predictable deployment.
   `- Readme.md              (Readme and toc for /docs)
 
 ```
-
-# Installation
-
-* make sure you have [Composer](https://getcomposer.org/doc/00-intro.md#installation-nix) installed.
-* checkout the project from git (https://github.com/finaldream/wordpress-composed)
-* in the project-root (this is where the composer.json lives):
-  * review the `wp-config.php`, make optional changes
-  * run: `composer install`
-* Open up the browser and run the Wordpress-Installer
-* That's all!
 
 ## Configuration
 
@@ -103,10 +78,3 @@ when managing custom-themes (as well as custom code as part of `lib`) inside of 
 Instead of cluttering your git-history with ambiguous "Composer Update"-messages, you'll get linear change-logs from your 
 git-history. 
 
-
-# Author
-Oliver Erdmann, http://www.finaldream.de
-Github: https://github.com/finaldream/wordpress-composed
-
-# License
-Wordpress-Composed is licensed unter the ISC License, See LICENSE file for details: http://opensource.org/licenses/ISC
